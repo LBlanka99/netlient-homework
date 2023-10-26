@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using NetlientHomework.Entities;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,7 +20,14 @@ builder.Services.AddCors(options =>
         });
 });
 
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddEnvironmentVariables()
+    .Build();
 
+builder.Services.AddDbContext<NetlientHomeworkContext>(options =>
+    options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
 
 
 var app = builder.Build();
