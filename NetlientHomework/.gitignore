@@ -231,5 +231,5 @@ _Pvt_Extensions
 .fake/
 
 # Ignore SQLite journal files
-mydatabase.db-shm
-mydatabase.db-wal
+*.db-shm
+*.db-wal
