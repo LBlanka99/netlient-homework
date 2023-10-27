@@ -229,3 +229,7 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+# Ignore SQLite journal files
+mydatabase.db-shm
+mydatabase.db-wal

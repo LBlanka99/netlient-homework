@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using NetlientHomework.Entities;
+using NetlientHomework.Entities.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +31,19 @@ builder.Services.AddDbContext<NetlientHomeworkContext>(options =>
     options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
 
 
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<NetlientHomeworkContext>();
+
+    if (!context.DataModel.Any())
+    {
+        InitializeTestData(context);
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -51,3 +64,49 @@ app.MapControllerRoute(
 app.MapFallbackToFile("index.html");
 
 app.Run();
+
+void InitializeTestData(NetlientHomeworkContext context)
+{
+    
+    Random random = new Random();
+        
+    List<string> possibleNames = new List<string>
+    {
+        "T-shirt",
+        "pants",
+        "jumper",
+        "hat",
+        "gloves",
+        "skirt",
+        "pyjamas",
+            
+    };
+    List<string> possibleColors = new List<string>
+    {
+        "red",
+        "dark-green",
+        "sky-blue",
+        "orange",
+        "pink",
+        "yellow",
+        "pale-purple",
+        "black",
+        "white"
+
+
+    };
+        
+    for (int i = 0; i < 100; i++)
+    {
+            
+        string randomItemName = possibleColors[random.Next(possibleColors.Count)] + " " +
+                                possibleNames[random.Next(possibleNames.Count)];
+        int randomNetPrice = random.Next(1000, 10000);
+        int randomTax = random.Next(20, 30);
+            
+        context.DataModel.Add(new DataModel { ItemNumber = 25076 + i, ItemName = randomItemName, NetPrice = randomNetPrice, Tax = randomTax });
+    }
+        
+
+    context.SaveChanges();
+}
