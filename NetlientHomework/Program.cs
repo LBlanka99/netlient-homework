@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using NetlientHomework.Entities;
 using NetlientHomework.Entities.Models;
+using NetlientHomework.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +45,20 @@ using (var scope = app.Services.CreateScope())
         InitializeTestData(context);
     }
 }
+
+app.Use(async (context, next) =>
+{
+    try
+    {
+        Console.WriteLine(context.Response.Body);
+        await next.Invoke();
+    }
+    catch (UserNameAlreadyInUseException e)
+    {
+        context.Response.StatusCode = 400;
+        await context.Response.WriteAsync(e.Message);
+    }
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
