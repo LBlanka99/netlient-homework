@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using NetlientHomework.Entities;
 using NetlientHomework.Entities.Models;
 using NetlientHomework.Exceptions;
+using NetlientHomework.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: myAllowSpecificOrigins,
         policy  =>
         {
-            policy.WithOrigins("http://localhost:44405", "http://localhost:57324")
+            policy.WithOrigins("https://localhost:44405")
                 .AllowAnyHeader()
                 .AllowCredentials()
                 .AllowAnyMethod();
@@ -31,6 +32,7 @@ var configuration = new ConfigurationBuilder()
 builder.Services.AddDbContext<NetlientHomeworkContext>(options =>
     options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddTransient<UserService>();
 
 
 var app = builder.Build();
@@ -60,6 +62,8 @@ app.Use(async (context, next) =>
     }
 });
 
+app.UseCors(myAllowSpecificOrigins);
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -79,6 +83,9 @@ app.MapControllerRoute(
 app.MapFallbackToFile("index.html");
 
 app.Run();
+
+
+
 
 void InitializeTestData(NetlientHomeworkContext context)
 {

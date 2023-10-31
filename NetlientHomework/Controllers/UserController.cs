@@ -16,6 +16,7 @@ public class UserController : ControllerBase
         _userService = userService;
     }
     
+    [HttpPost]
     public async Task<UserModel> PostNewUser([FromBody] SignUpDTO user)
     {
         return await _userService.AddNewUser(user);
