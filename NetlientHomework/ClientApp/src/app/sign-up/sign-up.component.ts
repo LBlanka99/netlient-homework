@@ -16,7 +16,7 @@ export class SignUpComponent {
 
   constructor(private httpClient: HttpClient) {}
 
-  onRegister() {
+  onRegister(): void {
     this.errorMessage = "";
     // verify data
     if (!this.user.username || !this.user.password || !this.user.passwordAgain) {
@@ -38,8 +38,9 @@ export class SignUpComponent {
 
     console.log(body);
 
-    this.httpClient.post(apiAddress, body, {withCredentials: true}).subscribe(res => {
-      console.log(res);
+    this.httpClient.post(apiAddress, body, {withCredentials: true}).subscribe({
+      next: user => console.log(user),
+      error: err => this.errorMessage = err.error
     });
   }
 }
