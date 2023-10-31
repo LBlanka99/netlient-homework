@@ -1,5 +1,6 @@
-import {Component} from "@angular/core";
+import {Component, OnDestroy} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
+import {Subscription} from "rxjs";
 
 interface User {
   username: string;
@@ -10,9 +11,10 @@ interface User {
   selector: "app-sign-up",
   templateUrl: "./sign-up.component.html"
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnDestroy{
   user: User = {username: "", password: "", passwordAgain: ""};
   errorMessage: string = "";
+  sub!: Subscription;
 
   constructor(private httpClient: HttpClient) {}
 
@@ -38,9 +40,14 @@ export class SignUpComponent {
 
     console.log(body);
 
-    this.httpClient.post(apiAddress, body, {withCredentials: true}).subscribe({
+    this.sub = this.httpClient.post(apiAddress, body, {withCredentials: true}).subscribe({
       next: user => console.log(user),
       error: err => this.errorMessage = err.error
     });
+
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }
