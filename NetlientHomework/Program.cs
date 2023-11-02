@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using NetlientHomework.Entities;
 using NetlientHomework.Entities.Models;
+using NetlientHomework.Exceptions;
+using NetlientHomework.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +17,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: myAllowSpecificOrigins,
         policy  =>
         {
-            policy.WithOrigins("http://localhost:44405", "http://localhost:57324")
+            policy.WithOrigins("https://localhost:44405")
                 .AllowAnyHeader()
                 .AllowCredentials()
                 .AllowAnyMethod();
@@ -30,6 +33,12 @@ var configuration = new ConfigurationBuilder()
 builder.Services.AddDbContext<NetlientHomeworkContext>(options =>
     options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddTransient<UserService>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie();
 
 
 var app = builder.Build();
@@ -44,6 +53,29 @@ using (var scope = app.Services.CreateScope())
         InitializeTestData(context);
     }
 }
+
+app.Use(async (context, next) =>
+{
+    try
+    {
+        Console.WriteLine(context.Response.Body);
+        await next.Invoke();
+    }
+    catch (UserNameAlreadyInUseException e)
+    {
+        context.Response.StatusCode = 400;
+        await context.Response.WriteAsync(e.Message);
+    }
+    catch (UnsuccessfulLoginException e)
+    {
+        context.Response.StatusCode = 401;
+        await context.Response.WriteAsync(e.Message);
+    }
+});
+
+app.UseCors(myAllowSpecificOrigins);
+
+app.UseAuthentication();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -64,6 +96,9 @@ app.MapControllerRoute(
 app.MapFallbackToFile("index.html");
 
 app.Run();
+
+
+
 
 void InitializeTestData(NetlientHomeworkContext context)
 {
