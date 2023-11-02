@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using NetlientHomework.Entities;
 using NetlientHomework.Entities.Models;
@@ -32,7 +33,12 @@ var configuration = new ConfigurationBuilder()
 builder.Services.AddDbContext<NetlientHomeworkContext>(options =>
     options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<UserService>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie();
 
 
 var app = builder.Build();
@@ -60,9 +66,16 @@ app.Use(async (context, next) =>
         context.Response.StatusCode = 400;
         await context.Response.WriteAsync(e.Message);
     }
+    catch (UnsuccessfulLoginException e)
+    {
+        context.Response.StatusCode = 401;
+        await context.Response.WriteAsync(e.Message);
+    }
 });
 
 app.UseCors(myAllowSpecificOrigins);
+
+app.UseAuthentication();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -39,4 +39,15 @@ public class UserService
         await _context.SaveChangesAsync();
         return userToAdd;
     }
+    
+    public async Task<UserModel?> LogInUser(SignUpDTO user)
+    {
+        UserModel? foundUser = await GetUserByName(user.UserName);
+        if (foundUser == null)
+        {
+            return null;
+        }
+
+        return user.Password == foundUser.Password ? foundUser : null;
+    }
 }
