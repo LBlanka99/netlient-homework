@@ -31,7 +31,7 @@ export class LogInComponent {
     };
 
     this.sub = this.httpClient.post(apiAddress, body, {withCredentials: true}).subscribe({
-      next: res => console.log(res),
+      next: res => this.router.navigate(["/products"]),
       error: err => this.errorMessage = err.error
     });
 
