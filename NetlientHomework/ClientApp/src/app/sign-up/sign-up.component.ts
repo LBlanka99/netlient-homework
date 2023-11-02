@@ -1,6 +1,7 @@
 import {Component, OnDestroy} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
 
 interface User {
   username: string;
@@ -16,7 +17,7 @@ export class SignUpComponent implements OnDestroy{
   errorMessage: string = "";
   sub!: Subscription;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private router: Router) {}
 
   onRegister(): void {
     this.errorMessage = "";
@@ -41,7 +42,7 @@ export class SignUpComponent implements OnDestroy{
     console.log(body);
 
     this.sub = this.httpClient.post(apiAddress, body, {withCredentials: true}).subscribe({
-      next: user => console.log(user),
+      next: user => this.router.navigate(["/log-in"]),
       error: err => this.errorMessage = err.error
     });
 
