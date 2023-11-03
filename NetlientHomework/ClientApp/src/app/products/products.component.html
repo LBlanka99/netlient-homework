@@ -1,1 +1,45 @@
-<h1>Here will be shown the products!</h1>
+<div class='card'>
+  <div class='card-header'>
+    Test products
+  </div>
+  <div class='card-body'>
+    <div class='row'>
+
+      <div class='col-md-4'>
+
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-md-6'>
+
+      </div>
+    </div>
+    <div class='table-responsive'>
+      <table class='table'
+             *ngIf='products.length'>
+        <thead>
+        <tr>
+          <th>Code</th>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Tax</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let product of filteredProducts">
+          <td>{{ product.itemNumber }}</td>
+          <td>
+              {{ product.itemName }}
+          </td>
+          <td>{{ product.netPrice | currency:'HUF':'symbol'}}</td>
+          <td>{{ product.tax | percent }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div *ngIf='errorMessage'
+     class='alert alert-danger'>
+  Error: {{ errorMessage }}
+</div>
