@@ -36,6 +36,7 @@ builder.Services.AddDbContext<NetlientHomeworkContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<UserService>();
+builder.Services.AddTransient<ProductService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie();
