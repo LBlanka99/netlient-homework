@@ -17,6 +17,15 @@ export class ProductsComponent implements OnInit, OnDestroy{
   priceArrow:boolean = false;
   taxArrow:boolean = false;
 
+  private _filterBy = "";
+  get filterBy(): string {
+    return this._filterBy;
+  }
+  set filterBy(value: string) {
+    this._filterBy = value;
+    this.filteredProducts = this.filterProducts(value);
+  }
+
   constructor(private productService: ProductService) {
   }
 
@@ -67,6 +76,11 @@ export class ProductsComponent implements OnInit, OnDestroy{
       }
       return 0;
     });
+  }
+
+  filterProducts(filterBy: string): IProduct[] {
+    filterBy = filterBy.toLowerCase();
+    return this.products.filter((product => product.itemName.toLowerCase().includes(filterBy) || product.itemNumber.toString().includes(filterBy) || product.netPrice.toString().includes(filterBy) || product.tax.toString().includes(filterBy)));
   }
 
 
