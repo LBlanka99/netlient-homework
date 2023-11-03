@@ -20,23 +20,27 @@
         <thead>
         <tr>
           <th>Code
-            <button (click)="codeArrow = onToggle(codeArrow)">
-              <i class="fa {{codeArrow}}"></i>
+            <button (click)="onSortBy('code')">
+              <i *ngIf="codeArrow" class="fa fa-arrow-up"></i>
+              <i *ngIf="!codeArrow" class="fa fa-arrow-down"></i>
             </button>
           </th>
           <th>Product
-            <button (click)="nameArrow = onToggle(nameArrow)">
-              <i class="fa {{nameArrow}}"></i>
+            <button (click)="onSortBy('name')">
+              <i *ngIf="nameArrow" class="fa fa-arrow-up"></i>
+              <i *ngIf="!nameArrow" class="fa fa-arrow-down"></i>
             </button>
           </th>
           <th>Price
-            <button (click)="priceArrow = onToggle(priceArrow)">
-              <i class="fa {{priceArrow}}"></i>
+            <button (click)="onSortBy('price')">
+              <i *ngIf="priceArrow" class="fa fa-arrow-up"></i>
+              <i *ngIf="!priceArrow" class="fa fa-arrow-down"></i>
             </button>
           </th>
           <th>Tax
-            <button (click)="taxArrow = onToggle(taxArrow)">
-              <i class="fa {{taxArrow}}"></i>
+            <button (click)="onSortBy('tax')">
+              <i *ngIf="taxArrow" class="fa fa-arrow-up"></i>
+              <i *ngIf="!taxArrow" class="fa fa-arrow-down"></i>
             </button>
           </th>
         </tr>

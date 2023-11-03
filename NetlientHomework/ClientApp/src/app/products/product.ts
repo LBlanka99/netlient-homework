@@ -4,4 +4,5 @@ export interface IProduct {
   itemName: string;
   netPrice: number;
   tax: number;
+  [key: string]: any;
 }

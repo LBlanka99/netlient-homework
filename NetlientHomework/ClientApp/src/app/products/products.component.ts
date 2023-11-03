@@ -12,10 +12,10 @@ export class ProductsComponent implements OnInit, OnDestroy{
   filteredProducts: IProduct[] = [];
   sub!: Subscription;
   errorMessage: string = "";
-  codeArrow: string = "fa-arrow-down";
-  nameArrow: string = "fa-arrow-down";
-  priceArrow: string = "fa-arrow-down";
-  taxArrow: string = "fa-arrow-down";
+  codeArrow:boolean = false;
+  nameArrow:boolean = false;
+  priceArrow:boolean = false;
+  taxArrow:boolean = false;
 
   constructor(private productService: ProductService) {
   }
@@ -34,7 +34,40 @@ export class ProductsComponent implements OnInit, OnDestroy{
     this.sub.unsubscribe();
   }
 
-  onToggle(arrow: string) {
-    return arrow === "fa-arrow-down" ? "fa-arrow-up" : "fa-arrow-down";
+  onSortBy(column: string) {
+    switch (column) {
+      case "code":
+        this.codeArrow = !this.codeArrow;
+        this.filteredProducts = this.sortByColumn("itemNumber", this.codeArrow);
+        break;
+      case "name":
+        this.nameArrow = !this.nameArrow;
+        this.filteredProducts = this.sortByColumn("itemName", this.nameArrow);
+        break;
+      case "price":
+        this.priceArrow = !this.priceArrow;
+        this.filteredProducts = this.sortByColumn("netPrice", this.priceArrow);
+        break;
+      case "tax":
+        this.taxArrow = !this.taxArrow;
+        this.filteredProducts = this.sortByColumn("tax", this.taxArrow);
+        break;
+      default:
+        break;
+    }
   }
+
+  sortByColumn(columnName: string, descending: boolean) {
+    return this.filteredProducts.sort((a, b) => {
+      if (a[columnName] < b[columnName]) {
+        return descending ? 1 : -1;
+      }
+      if (a[columnName] > b[columnName]) {
+        return descending ? -1 : 1;
+      }
+      return 0;
+    });
+  }
+
+
 }
