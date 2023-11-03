@@ -47,18 +47,22 @@ export class ProductsComponent implements OnInit, OnDestroy{
     switch (column) {
       case "code":
         this.codeArrow = !this.codeArrow;
+        this.products = this.sortByColumn("itemNumber", this.codeArrow);
         this.filteredProducts = this.sortByColumn("itemNumber", this.codeArrow);
         break;
       case "name":
         this.nameArrow = !this.nameArrow;
+        this.products = this.sortByColumn("itemName", this.nameArrow);
         this.filteredProducts = this.sortByColumn("itemName", this.nameArrow);
         break;
       case "price":
         this.priceArrow = !this.priceArrow;
+        this.products = this.sortByColumn("netPrice", this.priceArrow);
         this.filteredProducts = this.sortByColumn("netPrice", this.priceArrow);
         break;
       case "tax":
         this.taxArrow = !this.taxArrow;
+        this.products = this.sortByColumn("tax", this.taxArrow);
         this.filteredProducts = this.sortByColumn("tax", this.taxArrow);
         break;
       default:
