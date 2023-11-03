@@ -12,6 +12,10 @@ export class ProductsComponent implements OnInit, OnDestroy{
   filteredProducts: IProduct[] = [];
   sub!: Subscription;
   errorMessage: string = "";
+  codeArrow: string = "fa-arrow-down";
+  nameArrow: string = "fa-arrow-down";
+  priceArrow: string = "fa-arrow-down";
+  taxArrow: string = "fa-arrow-down";
 
   constructor(private productService: ProductService) {
   }
@@ -28,5 +32,9 @@ export class ProductsComponent implements OnInit, OnDestroy{
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  onToggle(arrow: string) {
+    return arrow === "fa-arrow-down" ? "fa-arrow-up" : "fa-arrow-down";
   }
 }

@@ -19,10 +19,26 @@
              *ngIf='products.length'>
         <thead>
         <tr>
-          <th>Code</th>
-          <th>Product</th>
-          <th>Price</th>
-          <th>Tax</th>
+          <th>Code
+            <button (click)="codeArrow = onToggle(codeArrow)">
+              <i class="fa {{codeArrow}}"></i>
+            </button>
+          </th>
+          <th>Product
+            <button (click)="nameArrow = onToggle(nameArrow)">
+              <i class="fa {{nameArrow}}"></i>
+            </button>
+          </th>
+          <th>Price
+            <button (click)="priceArrow = onToggle(priceArrow)">
+              <i class="fa {{priceArrow}}"></i>
+            </button>
+          </th>
+          <th>Tax
+            <button (click)="taxArrow = onToggle(taxArrow)">
+              <i class="fa {{taxArrow}}"></i>
+            </button>
+          </th>
         </tr>
         </thead>
         <tbody>
