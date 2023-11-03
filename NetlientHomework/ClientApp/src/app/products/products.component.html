@@ -47,12 +47,10 @@
         </thead>
         <tbody>
         <tr *ngFor="let product of filteredProducts">
-          <td>{{ product.itemNumber }}</td>
-          <td>
-              {{ product.itemName }}
-          </td>
-          <td>{{ product.netPrice | currency:'HUF':'symbol'}}</td>
-          <td>{{ product.tax | percent }}</td>
+          <td [innerHTML]="product.itemNumber | boldMatches:filterBy"></td>
+          <td [innerHTML]="product.itemName | boldMatches:filterBy"></td>
+          <td [innerHTML]="product.netPrice | boldMatches:filterBy | forint"> </td>
+          <td [innerHTML]="product.tax | percent | boldMatches:filterBy"></td>
         </tr>
         </tbody>
       </table>

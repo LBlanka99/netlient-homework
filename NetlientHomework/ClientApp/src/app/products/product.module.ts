@@ -3,10 +3,14 @@ import {CommonModule} from "@angular/common";
 import {ProductsComponent} from "./products.component";
 import {RouterModule} from "@angular/router";
 import {FormsModule} from "@angular/forms";
+import {BoldMatchesPipe} from "./bold-matches.pipe";
+import {ForintPipe} from "./forint.pipe";
 
 @NgModule({
   declarations: [
-    ProductsComponent
+    ProductsComponent,
+    BoldMatchesPipe,
+    ForintPipe
   ],
   imports: [
     CommonModule,
