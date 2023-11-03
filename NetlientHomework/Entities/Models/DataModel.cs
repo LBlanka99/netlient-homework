@@ -15,5 +15,5 @@ public class DataModel
     [Required]
     public int NetPrice { get; set; }
     [Required]
-    public int Tax { get; set; }
+    public double Tax { get; set; }
 }
