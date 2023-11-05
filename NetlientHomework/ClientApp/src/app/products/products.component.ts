@@ -2,6 +2,8 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ProductService} from "./product.service";
 import {IProduct} from "./product";
 import {Subscription} from "rxjs";
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
 @Component({
   selector: "app-products",
@@ -85,6 +87,32 @@ export class ProductsComponent implements OnInit, OnDestroy{
   filterProducts(filterBy: string): IProduct[] {
     filterBy = filterBy.toLowerCase();
     return this.products.filter((product => product.itemName.toLowerCase().includes(filterBy) || product.itemNumber.toString().includes(filterBy) || product.netPrice.toString().includes(filterBy) || product.tax.toString().includes(filterBy)));
+  }
+
+  exportToPDF() {
+    const documentDefinition = {
+      content: [
+        `Results for search term: '${this.filterBy}'\n\n`,
+        {
+          table: {
+            headerRows: 1,
+            widths: ["auto", "auto", "auto", "auto"],
+            body: [
+              ["Code", "Product", "Price", "Tax"],
+              ...this.filteredProducts.map((product) => [
+                product.itemNumber,
+                product.itemName,
+                product.netPrice,
+                product.tax,
+              ]),
+            ],
+          },
+        },
+      ],
+    };
+
+    (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+    pdfMake.createPdf(documentDefinition).open();
   }
 
 
