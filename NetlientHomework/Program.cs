@@ -138,7 +138,7 @@ void InitializeTestData(NetlientHomeworkContext context)
         string randomItemName = possibleColors[random.Next(possibleColors.Count)] + " " +
                                 possibleNames[random.Next(possibleNames.Count)];
         int randomNetPrice = random.Next(1000, 10000);
-        double randomTax = random.Next(20, 30)/100f;
+        double randomTax = Math.Round(random.Next(20, 35)/100f, 2);
             
         context.DataModel.Add(new DataModel { ItemNumber = 25076 + i, ItemName = randomItemName, NetPrice = randomNetPrice, Tax = randomTax });
     }
