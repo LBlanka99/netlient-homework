@@ -9,11 +9,11 @@ public class DataModel
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
     [Required]
-    public int ItemNumber { get; set; }
+    public string ItemNumber { get; set; }
     [Required]
     public string ItemName { get; set; }
     [Required]
     public int NetPrice { get; set; }
     [Required]
-    public int Tax { get; set; }
+    public double Tax { get; set; }
 }

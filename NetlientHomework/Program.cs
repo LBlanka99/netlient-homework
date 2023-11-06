@@ -36,6 +36,7 @@ builder.Services.AddDbContext<NetlientHomeworkContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<UserService>();
+builder.Services.AddTransient<ProductService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie();
@@ -58,7 +59,6 @@ app.Use(async (context, next) =>
 {
     try
     {
-        Console.WriteLine(context.Response.Body);
         await next.Invoke();
     }
     catch (UserNameAlreadyInUseException e)
@@ -137,9 +137,9 @@ void InitializeTestData(NetlientHomeworkContext context)
         string randomItemName = possibleColors[random.Next(possibleColors.Count)] + " " +
                                 possibleNames[random.Next(possibleNames.Count)];
         int randomNetPrice = random.Next(1000, 10000);
-        int randomTax = random.Next(20, 30);
+        double randomTax = Math.Round(random.Next(20, 35)/100f, 2);
             
-        context.DataModel.Add(new DataModel { ItemNumber = 25076 + i, ItemName = randomItemName, NetPrice = randomNetPrice, Tax = randomTax });
+        context.DataModel.Add(new DataModel { ItemNumber = "HL" + (25076 + i), ItemName = randomItemName, NetPrice = randomNetPrice, Tax = randomTax });
     }
         
 

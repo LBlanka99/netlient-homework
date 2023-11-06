@@ -33,7 +33,6 @@ public class UserController : ControllerBase
     [HttpPost("log-in")]
     public async Task LogInUser([FromBody] SignUpDTO credentials)
     {
-        System.Console.WriteLine("hello");
         var user = await _userService.LogInUser(credentials);
         if (user == null)
         {
