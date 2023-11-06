@@ -1,6 +1,6 @@
 <header>
   <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
+    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary bg-gradient text-primary border-bottom box-shadow mb-3"
   >
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">Home</a>
@@ -26,15 +26,15 @@
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link text-dark" [routerLink]="['/sign-up']">Sign up</a>
+            <a class="nav-link text-white" [routerLink]="['/sign-up']">Sign up</a>
           </li>
           <li *ngIf="!auth.isAuthenticated()" class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/log-in']"
+            <a class="nav-link text-white" [routerLink]="['/log-in']"
               >Log in</a
             >
           </li>
           <li *ngIf="auth.isAuthenticated()" class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/products']"
+            <a class="nav-link text-white" [routerLink]="['/products']"
               >Products</a
             >
           </li>
