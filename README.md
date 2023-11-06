@@ -20,13 +20,13 @@
 		 <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
 	<li><a href="#build-and-run">Build & Run</a></li>
-        <li><a href="#how-to-start-the-project-for-development-purposes">How to start the project for development purposes</a></li>
      </ul>
     </li>
   </ol>
 </details>
 
 ## About the project
+![About The Project Screenshot][screenshot]
 
 This project is a web application that allows users to see products in a table after login.
 
@@ -38,10 +38,39 @@ This project is a web application that allows users to see products in a table a
 - **PDF Export:** Users can export the filtered list to a PDF file.
 
 ## Built with
-* [![Angular][angular.ts]][angular-url]
-* [![Typescript][ts]][ts-url]
 * [![C#][csharp]][csharp-url]
 * [![.Net][dotnet]][dotnet-url]
+* [![Angular][angular.ts]][angular-url]
+* [![Typescript][ts]][ts-url]
+
+## Getting started
+### Prerequisites
+- Node.js and npm installed on your machine.
+
+<a name="build-and-run"></a>
+### Build & Run
+1. Clone the repository to your local machine:
+```sh
+git clone git@github.com:LBlanka99/netlient-homework.git
+```
+2. Build and run the C# project to start the server:
+```sh
+dotnet build
+```
+3. In a separate terminal, navigate to the Angular project directory:
+```sh
+cd your-path-to-the-project-folder/NetlientHomework/ClientApp
+```
+4. Install Angular dependencies by running:
+```sh
+npm install
+```
+5. Start the Angular development server:
+```sh
+npm start
+```
+
+The application should now be running locally at https://localhost:44405/. You can access it in your web browser.
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
@@ -53,3 +82,4 @@ This project is a web application that allows users to see products in a table a
 [ts-url]: https://www.typescriptlang.org/
 [dotnet]: https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white
 [dotnet-url]: https://dotnet.microsoft.com/en-us/
+[screenshot]: NetlientHomework/images/picture1.png
