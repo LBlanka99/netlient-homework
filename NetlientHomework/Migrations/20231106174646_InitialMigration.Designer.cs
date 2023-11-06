@@ -11,8 +11,8 @@ using NetlientHomework.Entities;
 namespace NetlientHomework.Migrations
 {
     [DbContext(typeof(NetlientHomeworkContext))]
-    [Migration("20231103220738_TaxIntoPercantage")]
-    partial class TaxIntoPercantage
+    [Migration("20231106174646_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,8 +30,9 @@ namespace NetlientHomework.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ItemNumber")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("ItemNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("NetPrice")
                         .HasColumnType("INTEGER");
