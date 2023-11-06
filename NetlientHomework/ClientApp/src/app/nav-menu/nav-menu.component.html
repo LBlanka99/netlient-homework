@@ -21,18 +21,19 @@
       >
         <ul class="navbar-nav flex-grow">
           <li
+            *ngIf="!auth.isAuthenticated()"
             class="nav-item"
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
             <a class="nav-link text-dark" [routerLink]="['/sign-up']">Sign up</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li *ngIf="!auth.isAuthenticated()" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/log-in']"
               >Log in</a
             >
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li *ngIf="auth.isAuthenticated()" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/products']"
               >Products</a
             >
