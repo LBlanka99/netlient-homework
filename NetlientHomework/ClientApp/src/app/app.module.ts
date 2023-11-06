@@ -24,9 +24,10 @@ import {ProductModule} from "./products/product.module";
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: "", component: HomeComponent, pathMatch: "full" },
       { path: "sign-up", component: SignUpComponent },
-      { path: "log-in", component: LogInComponent }
+      { path: "log-in", component: LogInComponent },
+      { path: "**", redirectTo: ""}
     ]),
     ProductModule
   ],
