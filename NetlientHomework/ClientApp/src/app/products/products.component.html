@@ -49,8 +49,8 @@
               <tr *ngFor="let product of filteredProducts">
                 <td [innerHTML]="product.itemNumber | boldMatches:filterBy"></td>
                 <td [innerHTML]="product.itemName | boldMatches:filterBy"></td>
-                <td [innerHTML]="product.netPrice | boldMatches:filterBy | forint"> </td>
-                <td [innerHTML]="product.tax | percent | boldMatches:filterBy"></td>
+                <td [innerHTML]="product.netPrice | forint | boldMatchesByCurrency:filterBy"> </td>
+                <td [innerHTML]="product.tax | percent | boldMatchesByPercent:filterBy"></td>
               </tr>
               </tbody>
             </table>
