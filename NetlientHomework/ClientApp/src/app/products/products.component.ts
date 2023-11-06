@@ -2,8 +2,7 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ProductService} from "./product.service";
 import {IProduct} from "./product";
 import {Subscription} from "rxjs";
-import * as pdfMake from "pdfmake/build/pdfmake";
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import {PdfGeneratorService} from "./pdf-generator.service";
 
 @Component({
   selector: "app-products",
@@ -28,7 +27,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
     this.filteredProducts = this.filterProducts(value);
   }
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private pdfGenerator: PdfGeneratorService) {
   }
 
   ngOnInit() {
@@ -90,29 +89,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
   }
 
   exportToPDF() {
-    const documentDefinition = {
-      content: [
-        `Results for search term: '${this.filterBy}'\n\n`,
-        {
-          table: {
-            headerRows: 1,
-            widths: ["auto", "auto", "auto", "auto"],
-            body: [
-              ["Code", "Product", "Price", "Tax"],
-              ...this.filteredProducts.map((product) => [
-                product.itemNumber,
-                product.itemName,
-                product.netPrice,
-                product.tax,
-              ]),
-            ],
-          },
-        },
-      ],
-    };
-
-    (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
-    pdfMake.createPdf(documentDefinition).open();
+    this.pdfGenerator.generatePDF(this.filterBy, this.filteredProducts);
   }
 
 
