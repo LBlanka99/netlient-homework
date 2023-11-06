@@ -85,7 +85,11 @@ export class ProductsComponent implements OnInit, OnDestroy{
 
   filterProducts(filterBy: string): IProduct[] {
     filterBy = filterBy.toLowerCase();
-    return this.products.filter((product => product.itemName.toLowerCase().includes(filterBy) || product.itemNumber.toString().includes(filterBy) || product.netPrice.toString().includes(filterBy) || product.tax.toString().includes(filterBy)));
+    return this.products.filter((product =>
+      product.itemName.toLowerCase().includes(filterBy) ||
+      product.itemNumber.toLowerCase().includes(filterBy) ||
+      product.netPrice.toString() == filterBy ||
+      (product.tax*100).toString() == filterBy));
   }
 
   exportToPDF() {
@@ -93,4 +97,5 @@ export class ProductsComponent implements OnInit, OnDestroy{
   }
 
 
+  protected readonly String = String;
 }

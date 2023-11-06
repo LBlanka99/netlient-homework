@@ -59,7 +59,6 @@ app.Use(async (context, next) =>
 {
     try
     {
-        Console.WriteLine(context.Response.Body);
         await next.Invoke();
     }
     catch (UserNameAlreadyInUseException e)
@@ -140,7 +139,7 @@ void InitializeTestData(NetlientHomeworkContext context)
         int randomNetPrice = random.Next(1000, 10000);
         double randomTax = Math.Round(random.Next(20, 35)/100f, 2);
             
-        context.DataModel.Add(new DataModel { ItemNumber = 25076 + i, ItemName = randomItemName, NetPrice = randomNetPrice, Tax = randomTax });
+        context.DataModel.Add(new DataModel { ItemNumber = "HL" + (25076 + i), ItemName = randomItemName, NetPrice = randomNetPrice, Tax = randomTax });
     }
         
 
