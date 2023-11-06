@@ -45,7 +45,8 @@ This project is a web application that allows users to see products in a table a
 
 ## Getting started
 ### Prerequisites
-- Node.js and npm installed on your machine.
+- Node.js and npm installed on your machine
+- .NET SDK (version 7.0 or higher) installed on your machine
 
 <a name="build-and-run"></a>
 ### Build & Run
@@ -56,6 +57,8 @@ git clone git@github.com:LBlanka99/netlient-homework.git
 2. Build and run the C# project to start the server:
 ```sh
 dotnet build
+cd NetlientHomework
+dotnet run
 ```
 3. In a separate terminal, navigate to the Angular project directory:
 ```sh
@@ -70,7 +73,8 @@ npm install
 npm start
 ```
 
-The application should now be running locally at https://localhost:44405/. You can access it in your web browser.
+The application should now be running locally at https://localhost:44405/. You can access it in your web browser.<br>
+You can log in with default username: admin, and default password: 123.
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
