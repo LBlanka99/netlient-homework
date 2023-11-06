@@ -5,6 +5,7 @@ import {RouterModule} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {BoldMatchesPipe} from "./bold-matches.pipe";
 import {ForintPipe} from "./forint.pipe";
+import {AuthGuard} from "./auth.guard";
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import {ForintPipe} from "./forint.pipe";
   imports: [
     CommonModule,
     RouterModule.forChild([
-      {path: "products", component: ProductsComponent}
+      {path: "products", component: ProductsComponent, canActivate: [AuthGuard]}
     ]),
     FormsModule
   ]
