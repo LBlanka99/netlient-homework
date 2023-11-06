@@ -39,8 +39,6 @@ export class SignUpComponent implements OnDestroy{
       Password: this.user.password,
     };
 
-    console.log(body);
-
     this.sub = this.httpClient.post(apiAddress, body, {withCredentials: true}).subscribe({
       next: user => this.router.navigate(["/log-in"]),
       error: err => this.errorMessage = err.error
